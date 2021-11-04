@@ -1,0 +1,2 @@
+# flatpaks
+locally deployed sandboxes
