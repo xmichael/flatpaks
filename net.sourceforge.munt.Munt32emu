@@ -1,0 +1,31 @@
+app-id: net.sourceforge.munt.Munt32emu
+runtime: org.kde.Platform
+runtime-version: '5.15'
+sdk: org.kde.Sdk
+command: mt32emu-qt
+finish-args:
+  # X11 + XShm access
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=pulseaudio  
+cleanup:
+  - '/include'
+  - '/lib/pkgconfig'
+  - '/share/aclocal'
+  - '/share/man'
+  - '*.la'
+  - '*.a'
+  - '/share/doc'
+modules:
+  # munt distibutes 7 projects as a single git repo
+  - name: mt32emu_qt_1_9_0
+    buildsystem: cmake
+    config-opts:
+      - -DCMAKE_BUILD_TYPE:STRING=Release -Dmunt_WITH_MT32EMU_QT=true
+    cleanup:
+      - "/include"
+      - "/lib/pkgconfig"
+    sources:
+      - type: git
+        url: https://github.com/munt/munt
+        tag: "libmt32emu_2_5_3"
